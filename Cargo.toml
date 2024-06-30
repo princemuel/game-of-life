@@ -3,6 +3,11 @@ name = "game-of-life"
 version = "0.1.0"
 authors = ["Prince Muel <vansomecsam@gmail.com>"]
 edition = "2021"
+description = "The Game of Life Project built with Wasm and Rust "
+repository = "https://github.com/princemuel/game-of-life"
+license = "MIT"
+license-file = "LICENSE.txt"
+publish = false
 
 [lib]
 crate-type = ["cdylib", "rlib"]
