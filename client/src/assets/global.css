@@ -1,0 +1,21 @@
+html {
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  font: inherit;
+}
+
+body {
+  min-height: 100svh;
+}
+
+section {
+  display: grid;
+  place-content: center;
+  min-height: 100%;
+}
