@@ -19,8 +19,35 @@ pub struct Universe {
     cells: Vec<Cell>,
 }
 
+impl Default for Universe {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[wasm_bindgen]
 impl Universe {
+    pub fn new() -> Universe {
+        let width = 64;
+        let height = 64;
+
+        let cells = (0..width * height)
+            .map(|value| {
+                if value % 2 == 0 || value % 7 == 0 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+
+        Universe { width, height, cells }
+    }
+
+    pub fn render(&self) -> String {
+        self.to_string()
+    }
+
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
 
