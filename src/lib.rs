@@ -1,8 +1,16 @@
 mod utils;
 
 use std::fmt;
-
 use wasm_bindgen::prelude::*;
+
+extern crate web_sys;
+
+// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -25,9 +33,25 @@ impl Default for Universe {
     }
 }
 
+impl fmt::Display for Universe {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for line in self.cells.as_slice().chunks(self.width as usize) {
+            for &cell in line {
+                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
+                write!(f, "{}", symbol)?;
+            }
+            writeln!(f)?;
+        }
+
+        Ok(())
+    }
+}
+
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
+        utils::set_panic_hook();
+
         let width = 64;
         let height = 64;
 
@@ -46,6 +70,30 @@ impl Universe {
 
     pub fn render(&self) -> String {
         self.to_string()
+    }
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+    /// Set the width of the universe.
+    ///
+    /// Resets all cells to the dead state.
+    pub fn set_width(&mut self, width: u32) {
+        self.width = width;
+        self.cells = (0..width * self.height).map(|_| Cell::Dead).collect();
+    }
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+    /// Set the height of the universe.
+    ///
+    /// Resets all cells to the dead state.
+    pub fn set_height(&mut self, height: u32) {
+        self.height = height;
+        self.cells = (0..self.width * height).map(|_| Cell::Dead).collect();
+    }
+
+    pub fn cells(&self) -> *const Cell {
+        self.cells.as_ptr()
     }
 
     pub fn tick(&mut self) {
@@ -83,6 +131,22 @@ impl Universe {
 }
 
 impl Universe {
+    /// Get the dead and alive values of the entire universe.
+    pub fn get_cells(&self) -> &[Cell] {
+        &self.cells
+    }
+
+    /// Set cells to be alive in a universe by passing the row and column
+    /// of each cell as an array.
+    pub fn set_cells(&mut self, cells: &[(u32, u32)]) {
+        for (row, col) in cells.iter().cloned() {
+            let idx = self.get_index(row, col);
+            self.cells[idx] = Cell::Alive;
+        }
+    }
+}
+
+impl Universe {
     fn live_neighbor_count(&self, row: u32, col: u32) -> u8 {
         let mut count = 0;
 
@@ -104,19 +168,5 @@ impl Universe {
 
     fn get_index(&self, row: u32, col: u32) -> usize {
         ((row * self.width) + col) as usize
-    }
-}
-
-impl fmt::Display for Universe {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        for line in self.cells.as_slice().chunks(self.width as usize) {
-            for &cell in line {
-                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
-                write!(f, "{}", symbol)?;
-            }
-            writeln!(f)?;
-        }
-
-        Ok(())
     }
 }
