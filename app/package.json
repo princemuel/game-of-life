@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:pkg": "cd .. && wasm-pack build && cd ./app && npm install",
+    "build:pkg": "cd .. && wasm-pack build --out-name index && cd ./app && npm install",
     "preview": "vite preview"
   },
   "devDependencies": {

@@ -1,0 +1,27 @@
+{
+  "name": "game-of-life",
+  "type": "module",
+  "collaborators": [
+    "Prince Muel <vansomecsam@gmail.com>"
+  ],
+  "description": "The Game of Life Project built with Wasm and Rust ",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/princemuel/game-of-life"
+  },
+  "files": [
+    "index_bg.wasm",
+    "index.js",
+    "index_bg.js",
+    "index.d.ts",
+    "LICENSE.txt"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "sideEffects": [
+    "./index.js",
+    "./snippets/*"
+  ]
+}
