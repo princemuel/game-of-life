@@ -21,16 +21,11 @@ pub enum Cell {
 }
 
 #[wasm_bindgen]
+#[derive(Default)]
 pub struct Universe {
     width: u32,
     height: u32,
     cells: Vec<Cell>,
-}
-
-impl Default for Universe {
-    fn default() -> Self {
-        Self::new()
-    }
 }
 
 impl fmt::Display for Universe {
