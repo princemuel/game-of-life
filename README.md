@@ -36,4 +36,8 @@ Put it all together, and we get this universe after the next tick:
 
 From these simple, deterministic rules, a strange and exciting behavior emerges:
 
-<img src="/assets/gol_pulsar.gif" alt="Variations of the Game Of Life" />
+<img src="/assets/gospers_glider_gun.gif" alt="Gasper's Glider Run" />
+
+<img src="/assets/gol_pulsar.gif" alt="Game of Life Variation: Pulsar" />
+
+<img src="/assets/gol_animated_spaceship.gif" alt="Game of Life Variation: Spaceship" />
