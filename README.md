@@ -20,7 +20,7 @@ The initial pattern constitutes the seed of the system. The first generation is 
 
 Consider the following initial universe:
 
-![The Initial Universe](./assets/initial-universe.png)
+<img src="/assets/initial-universe.png" alt="The Initial Universe" width="48" height="48" />
 
 We can calculate the next generation by considering each cell. The top left cell is dead. Rule (4) is the only transition rule that applies to dead cells. However, because the top left cell does not have exactly three live neighbors, the transition rule does not apply, and it remains dead in the next generation. The same goes for every other cell in the first row as well.
 
@@ -32,8 +32,8 @@ The final interesting cases are the dead cells just to the left and right of the
 
 Put it all together, and we get this universe after the next tick:
 
-![The Next Universe](./assets/next-universe.png)
+<img src="/assets/next-universe.png" alt="The Next Universe" width="48" height="48" />
 
 From these simple, deterministic rules, a strange and exciting behavior emerges:
 
-![Variations of the Game Of Life](./assets/gol_pulsar.gif)
+<img src="/assets/gol_pulsar.gif" alt="Variations of the Game Of Life" />
